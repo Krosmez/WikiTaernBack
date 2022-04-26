@@ -1,0 +1,15 @@
+{
+  "name": "wiki-taern-back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Krosmez, Ikarius",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Krosmez/WikiTaernBack/issues"
+  },
+  "homepage": "https://github.com/Krosmez/WikiTaernBack#readme"
+}
