@@ -31,7 +31,8 @@ itemsRouter.post('/stuff', async (req, res) => {
             stats,
             effects,
             isPartOfSet
-        }
+        },
+        "isMaterial":false
     });
 
     newItem.save((err, result) => {
