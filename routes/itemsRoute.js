@@ -7,7 +7,6 @@ const itemsRouter = express.Router();
 itemsRouter.get('/all', async (_, res) => {
     items.find({}).then(
         (data) => {
-            console.log(data)
             res.status(200).json(data);
         }
     ).catch(
@@ -32,8 +31,7 @@ itemsRouter.post('/stuff', async (req, res) => {
             stats,
             effects,
             isPartOfSet
-        },
-        "isMaterial":false
+        }
     });
 
     newItem.save((err, result) => {
@@ -51,10 +49,10 @@ itemsRouter.post('/stuff', async (req, res) => {
 
 // Create a new item as Material
 itemsRouter.post('/material', async (req, res) => {
-    const { name, value, weight, position, utility, isNatural, isFromPNJ} = req.body;
+    const { name, value, weight, position, utility, isNatural, isFromPNJ } = req.body;
     // create a new item
     const newItem = new items({
-        "isStuff":false,
+        "isStuff": false,
         "isMaterial": {
             name,
             value,
@@ -75,9 +73,14 @@ itemsRouter.post('/material', async (req, res) => {
             )
             return;
         }
-        console.log(result)
         res.status(200).json({ result })
     })
+})
+
+itemsRouter.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+    await items.deleteOne({ _id: id });
+    res.status(204).send();
 })
 
 module.exports = itemsRouter;
