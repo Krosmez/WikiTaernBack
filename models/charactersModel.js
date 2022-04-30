@@ -4,7 +4,6 @@ const characters = mongoose.model(
     "Characters",
     new mongoose.Schema(
         {
-            "_id": ObjectId,
             "name": String,
             "position": String,
             "isPNJ": {
@@ -16,12 +15,10 @@ const characters = mongoose.model(
                 },
                 "trades": [
                     {
-                        "_id": ObjectId,
-                        "matId": ObjectId,
+                        "matId": {type: mongoose.Schema.Types.ObjectId, ref:'items'},
                         "obtainedMaterial": String,
                         "obtainedWith": [
                             {
-                                "_id": ObjectId,
                                 "name": String,
                                 "qty": Number
                             }
@@ -34,45 +31,31 @@ const characters = mongoose.model(
                 "isChampion": Boolean,
                 "isBoss": Boolean,
                 "loot": {
-                    "ressources": [
-                        {
-                            "_id": ObjectId,
-                            "name": String,
-                            "position": String
-                        }
-                    ],
+                    "ressources": [{ "name": String, "position": String }],
                     "items": {
                         "isEpic": Boolean,
-                        "isSet": [
-                            {
-                                "_id": ObjectId,
-                                "name":String,
-                                "rarity": String,
-                                "effects": [
-                                    {
-                                        "_id": ObjectId,
-                                        "name": String,
-                                        "qty": Number,
-                                        "description": String
-                                    }
-                                ]
-                            }
-                        ],
-                        "isRare": [
-                            {
-                                "_id": ObjectId,
-                                "name": String,
-                                "rarity": String,
-                                "effects": [
-                                    {
-                                        "_id": ObjectId,
-                                        "name": String,
-                                        "qty": Number,
-                                        "description": String
-                                    }
-                                ]
-                            }
-                        ]
+                        "isSet": {
+                            "name": String,
+                            "rarity": String,
+                            "effects": [
+                                {
+                                    "name": String,
+                                    "qty": Number,
+                                    "description": String
+                                }
+                            ]
+                        },
+                        "isRare": {
+                            "name": String,
+                            "rarity": String,
+                            "effects": [
+                                {
+                                    "name": String,
+                                    "qty": Number,
+                                    "description": String
+                                }
+                            ]
+                        }
                     }
                 }
             }

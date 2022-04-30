@@ -9,3 +9,11 @@ For the moment you must have a .env file or folder which should contains those p
 - PORT = the_port_you_re_working_on
 
 Noticed that every default parameter in this app are FAKE, they do not provide access to any database nor data.
+
+# API ENDPOINT
+
+## Items
+
+### GET
+
+`API_URL/items/all`

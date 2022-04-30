@@ -4,100 +4,63 @@ const items = mongoose.model(
     "Items",
     new mongoose.Schema(
         {
-            "name": String,
-            "value": Number,
-            "weight": Number,
-            "isStuff": [
-                {
-                    "isStuff": Boolean,
-                    "rarity": String,
-                    "isFor": String,
-                    "stats": [
+            "isStuff": {
+                "name": String,
+                "value": Number,
+                "weight": Number,
+                "rarity": String,
+                "isFor": String,
+                "stats": [{ "name": String, "value": Number }],
+                "effects": [{ "name": String, "value": Number }],
+                'isPartOfSet': {
+                    "name": String,
+                    "effects": [{ "name": String, "value": Number, "description": String }],
+                    "with": [{ "name": String }]
+                }
+
+            },
+            "isMaterial": {
+                "name": String,
+                "value": Number,
+                "weight": Number,
+                "position": String,
+                "utility": String,
+                "isNatural": {
+                    "extract_from": {
+                        "position": String,
+                        "qty": Number
+                    },
+                    "process_from": {
+                        "position": String,
+                        "qty": Number
+                    },
+                    "from_mob": {
+                        "mobId": {type:mongoose.Schema.Types.ObjectId, ref:'characters'},
+                        "name": String
+                    }
+                }
+                ,
+                "isFromPNJ": {
+                    "pnjId": {type:mongoose.Schema.Types.ObjectId, ref:'characters'},
+                    "buy_from": [
                         {
-                            "name": String,
-                            "value": Number
+                            "pnjId": {type:mongoose.Schema.Types.ObjectId, ref:'characters'},
+                            "trade_value": Number,
+                            "currency": String,
+                            "qty": Number
                         }
                     ],
-                    "effects": [
-                        {
-
-                            "name": String,
-                            "value": Number,
-                            'description': String
-                        }
-                    ],
-                    'isPartOfSet': {
-
-                        "name": String,
-                        "effects": [
+                    "by_trade": {
+                        "obtain_with": [
                             {
-
-                                "name": String,
-                                "value": Number,
-                                'description': String
-                            }
-                        ],
-                        "with": [
-                            {
+                                "pnjId": {type:mongoose.Schema.Types.ObjectId, ref:'characters'},
                                 "name": String
                             }
                         ]
-                    }
-
+                    },
+                    "tasks": [{ "qty": Number }]
                 }
-            ],
-            "isMaterial": [
-                {
-                    "position": String,
-                    "utility": String,
-                    "isNatural": [
-                        {
-                            "extract_from": {
-                                "position": String,
-                                "qty": Number
-                            },
-                            "process": {
-                                "position": String,
-                                "qty": Number
-                            },
-                            "from_mob": [
-                                {
-
-                                    "name": String
-                                }
-                            ]
-                        }
-                    ],
-                    "isFromPNJ": [
-                        {
-                            "buy_from": [
-                                {
-
-                                    "trade_value": Number,
-                                    "currency": String,
-                                    "qty": Number
-                                }
-                            ],
-                            "trade_with": [
-                                {
-
-                                    "obtain with": [
-                                        {
-
-                                            "name": String
-                                        }
-                                    ]
-                                }
-                            ],
-                            "tasks": [
-                                {
-                                    "qty": Number
-                                }
-                            ]
-                        }
-                    ]
-                }
-            ]
+            }
         }
     )
 );
