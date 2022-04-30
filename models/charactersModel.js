@@ -15,15 +15,14 @@ const characters = mongoose.model(
                 },
                 "trades": [
                     {
-                        "matId": mongoose.Types.ObjectId,
+                        "matId": {type: mongoose.Schema.Types.ObjectId, ref:'items'},
                         "obtainedMaterial": String,
                         "obtainedWith": [
                             {
                                 "name": String,
                                 "qty": Number
                             }
-                        ],
-                        "ref": "items"
+                        ]
                     }
                 ]
             },
@@ -32,12 +31,7 @@ const characters = mongoose.model(
                 "isChampion": Boolean,
                 "isBoss": Boolean,
                 "loot": {
-                    "ressources": [
-                        {
-                            "name": String,
-                            "position": String
-                        }
-                    ],
+                    "ressources": [{ "name": String, "position": String }],
                     "items": {
                         "isEpic": Boolean,
                         "isSet": {

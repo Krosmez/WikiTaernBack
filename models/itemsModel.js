@@ -35,14 +35,16 @@ const items = mongoose.model(
                         "qty": Number
                     },
                     "from_mob": {
-                        "_id": mongoose.Types.ObjectId,
+                        "mobId": {type:mongoose.Schema.Types.ObjectId, ref:'characters'},
                         "name": String
                     }
                 }
                 ,
                 "isFromPNJ": {
+                    "pnjId": {type:mongoose.Schema.Types.ObjectId, ref:'characters'},
                     "buy_from": [
                         {
+                            "pnjId": {type:mongoose.Schema.Types.ObjectId, ref:'characters'},
                             "trade_value": Number,
                             "currency": String,
                             "qty": Number
@@ -51,6 +53,7 @@ const items = mongoose.model(
                     "by_trade": {
                         "obtain_with": [
                             {
+                                "pnjId": {type:mongoose.Schema.Types.ObjectId, ref:'characters'},
                                 "name": String
                             }
                         ]
