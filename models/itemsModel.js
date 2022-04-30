@@ -4,7 +4,6 @@ const items = mongoose.model(
     "Items",
     new mongoose.Schema(
         {
-            "_id": ObjectId,
             "name": String,
             "value": Number,
             "weight": Number,
@@ -21,18 +20,18 @@ const items = mongoose.model(
                     ],
                     "effects": [
                         {
-                            "_id": ObjectId,
+
                             "name": String,
                             "value": Number,
                             'description': String
                         }
                     ],
                     'isPartOfSet': {
-                        "_id": ObjectId,
+
                         "name": String,
                         "effects": [
                             {
-                                "_id": ObjectId,
+
                                 "name": String,
                                 "value": Number,
                                 'description': String
@@ -40,7 +39,6 @@ const items = mongoose.model(
                         ],
                         "with": [
                             {
-                                "_id": ObjectId,
                                 "name": String
                             }
                         ]
@@ -64,7 +62,7 @@ const items = mongoose.model(
                             },
                             "from_mob": [
                                 {
-                                    "_id": ObjectId,
+
                                     "name": String
                                 }
                             ]
@@ -74,7 +72,7 @@ const items = mongoose.model(
                         {
                             "buy_from": [
                                 {
-                                    "_id": ObjectId,
+
                                     "trade_value": Number,
                                     "currency": String,
                                     "qty": Number
@@ -82,10 +80,10 @@ const items = mongoose.model(
                             ],
                             "trade_with": [
                                 {
-                                    "_id": ObjectId,
+
                                     "obtain with": [
                                         {
-                                            "_id": ObjectId,
+
                                             "name": String
                                         }
                                     ]
@@ -93,7 +91,6 @@ const items = mongoose.model(
                             ],
                             "tasks": [
                                 {
-                                    "pnjId": ObjectId,
                                     "qty": Number
                                 }
                             ]
