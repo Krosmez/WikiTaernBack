@@ -33,4 +33,36 @@ materialsRoute.post('/material', async (req, res) => {
     })
 });
 
+materialsRoute.put('/material/:id', async (req, res) => {
+    const { id } = req.params;
+    const { name, value, weight, position, utility, isNatural, isFromPNJ } = req.body;
+
+    const body = {
+        name,
+        value,
+        weight,
+        position,
+        utility,
+        isNatural,
+        isFromPNJ
+    };
+
+    if (!errors.isEmpty()) {
+        res.status(400).json({
+            errors: errors.array()
+        });
+        return;
+    };
+
+    await items.findOneAndUpdate({ _id: id }, body, (error, res) => {
+        if (error) {
+            res.status(500);
+            return;
+        } else {
+            res.status(200);
+        }
+    });
+    res.send();
+});
+
 module.exports = materialsRoute;

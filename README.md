@@ -18,6 +18,7 @@ Noticed that every default parameter in this app are FAKE, they do not provide a
 |POST|[/items/stuff](#post-stuff)|None|Post a new stuff|
 |POST|[/items/material](#post-material)|None|Post a new material|
 |PUT|[/items/stuff/:id](#put-stuff)|The stuff id|Modify a specific stuff|
+|PUT|[/items/material/:id](#put-material)|The material id|Modify a specific material|
 |DELETE|[/items/:id/](#delete-item)|The item id|Delete a specific item|
 
 
