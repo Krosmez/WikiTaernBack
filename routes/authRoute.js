@@ -6,7 +6,7 @@ const checkDuplicate = require("../middleware/checkDuplicate");
 const User = require("../models/userModel");
 const local = require('dotenv/config');
 
-require(local);
+// require(local);
 
 authRouter.post('/signup', [
     check("email", "Please provide a valid email").isEmail(),
