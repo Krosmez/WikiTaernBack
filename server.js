@@ -2,7 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const local = "dotenv/config";
-const itemsRouter = require('./routes/itemsRoute')
+const itemsRouter = require('./routes/items/itemsRoute');
+const materialsRoute = require("./routes/items/materialRoute");
+const allItemsRoute = require("./routes/items/allItemsRoute");
 require(local);
 
 const startApplication = async () => {
@@ -23,6 +25,8 @@ const app = express();
 app.use(express.json());
 
 // all routes
+app.use("/items", allItemsRoute);
 app.use("/items", itemsRouter);
+app.use("/items", materialsRoute);
 
 startApplication();
