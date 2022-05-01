@@ -15,11 +15,13 @@ stuffsRouter.get('/stuff', async (_, res) => {
     );
 });
 
-// stuffsRouter.get('/stuff/:id', async (req, res) => {
-//     const { id } = req.params;
-
-
-// })
+stuffsRouter.get('/stuff/:id', async (req, res) => {
+    const { id } = req.params;
+    stuffs.findById(id, (err, stuff) => {
+        err ? res.status(500).send({message:err}) :
+        res.status(200).json(stuff)
+    })
+})
 
 
 // Create a new item as Stuff
