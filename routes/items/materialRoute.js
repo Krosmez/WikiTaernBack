@@ -3,6 +3,18 @@ const materials = require("../../models/materialModel");
 
 const materialsRoute = express.Router();
 
+materialsRoute.get('/material', async (_, res) => {
+    materials.find({}).then(
+        (data) => {
+            res.status(200).json(data);
+        }
+    ).catch(
+        (err) => {
+            res.status(500).json({ message: err });
+        }
+    );
+});
+
 // Create a new item as Material
 materialsRoute.post('/material', async (req, res) => {
     const { name, value, weight, position, utility, isNatural, isFromPNJ } = req.body;
