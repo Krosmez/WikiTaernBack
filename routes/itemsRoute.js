@@ -15,7 +15,7 @@ itemsRouter.get('/all', async (_, res) => {
             res.status(400).json({ message: err });
         }
     )
-})
+});
 
 // Create a new item as Stuff
 itemsRouter.post('/stuff', async (req, res) => {
@@ -46,7 +46,7 @@ itemsRouter.post('/stuff', async (req, res) => {
         }
         res.status(200).json({ result })
     })
-})
+});
 
 // Create a new item as Material
 itemsRouter.post('/material', async (req, res) => {
@@ -76,19 +76,45 @@ itemsRouter.post('/material', async (req, res) => {
         }
         res.status(200).json({ result })
     })
-})
+});
 
 itemsRouter.put('/stuff/:id', async (req, res) => {
     const { id } = req.params;
+    const { name, value, weight, rarity, isFor, stats, effects, isPartOfSet } = req.body;
 
-    await items.findOneAndUpdate({ _id: id });
-    
-})
+    const body = {
+        name,
+        value,
+        weight,
+        rarity,
+        isFor,
+        stats,
+        effects,
+        isPartOfSet
+    };
+
+    if (!errors.isEmpty()) {
+        res.status(400).json({
+            errors: errors.array()
+        });
+        return ;
+    };
+
+    await items.findOneAndUpdate({ _id: id }, body, (error, res) => {
+        if (error) {
+            res.status(500);
+            return;
+        } else {
+            res.status(200);
+        }
+    });
+    res.send();
+});
 
 itemsRouter.delete('/:id', async (req, res) => {
     const { id } = req.params;
     await items.deleteOne({ _id: id });
     res.status(204).send();
-})
+});
 
 module.exports = itemsRouter;
