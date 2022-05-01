@@ -15,22 +15,6 @@ stuffsRouter.get('/stuff', async (_, res) => {
     );
 });
 
-stuffsRouter.get('/stuff/all', async (req, res) => {
-    stuffs.find({ isStuff: {} })
-        .exec()
-        .then(
-            (data) => {
-                res.status(200).json(data);
-            }
-        ).catch(
-            (err) => {
-                res.status(500).json({ message: err })
-            }
-        )
-
-
-})
-
 // stuffsRouter.get('/stuff/:id', async (req, res) => {
 //     const { id } = req.params;
 
