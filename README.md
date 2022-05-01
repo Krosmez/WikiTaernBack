@@ -14,11 +14,11 @@ Noticed that every default parameter in this app are FAKE, they do not provide a
 
 |METHOD|ENDPOINT|PARAMETER|PURPOSE|
 |--|:--|:--|:--|
-|GET|/items/all|None|Data of all items|
-|POST|/items/stuff|None|Post a new stuff|
-|POST|/items/material|None|Post a new material|
-|PUT|/items/stuff/:id|The stuff id|Modify a specific stuff|
-|DELETE|/items/:id/|The item id|Delete a specific item|
+|GET|[/items/all](#get-items)|None|Data of all items|
+|POST|[/items/stuff](#post-stuff)|None|Post a new stuff|
+|POST|[/items/material](#post-material)|None|Post a new material|
+|PUT|[/items/stuff/:id](#put-stuff)|The stuff id|Modify a specific stuff|
+|DELETE|[/items/:id/](#delete-item)|The item id|Delete a specific item|
 
 
 ## Items
