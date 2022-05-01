@@ -1,10 +1,10 @@
 const express = require("express");
-const items = require("../../models/itemsModel");
+const stuffs = require("../../models/stuffModel");
 
-const itemsRouter = express.Router();
+const stuffsRouter = express.Router();
 
-itemsRouter.get('/stuff/all', async (req, res) => {
-    items.find({ isStuff: {} })
+stuffsRouter.get('/stuff/all', async (req, res) => {
+    stuffs.find({ isStuff: {} })
         .exec()
         .then(
             (data) => {
@@ -19,7 +19,7 @@ itemsRouter.get('/stuff/all', async (req, res) => {
 
 })
 
-// itemsRouter.get('/stuff/:id', async (req, res) => {
+// stuffsRouter.get('/stuff/:id', async (req, res) => {
 //     const { id } = req.params;
 
 
@@ -27,24 +27,21 @@ itemsRouter.get('/stuff/all', async (req, res) => {
 
 
 // Create a new item as Stuff
-itemsRouter.post('/stuff', async (req, res) => {
+stuffsRouter.post('/stuff', async (req, res) => {
     const { name, value, weight, rarity, isFor, stats, effects, isPartOfSet } = req.body;
     // create a new item
-    const newItem = new items({
-        "isStuff": {
-            name,
-            value,
-            weight,
-            rarity,
-            isFor,
-            stats,
-            effects,
-            isPartOfSet
-        },
-        "isMaterial": false
+    const newStuff = new stuffs({
+        name,
+        value,
+        weight,
+        rarity,
+        isFor,
+        stats,
+        effects,
+        isPartOfSet
     });
 
-    newItem.save((err, result) => {
+    newStuff.save((err, result) => {
         if (err) {
             res.status(500).send(
                 {
@@ -57,7 +54,7 @@ itemsRouter.post('/stuff', async (req, res) => {
     })
 });
 
-itemsRouter.put('/stuff/:id', async (req, res) => {
+stuffsRouter.put('/stuff/:id', async (req, res) => {
     const { id } = req.params;
     const { name, value, weight, rarity, isFor, stats, effects, isPartOfSet } = req.body;
 
@@ -79,7 +76,7 @@ itemsRouter.put('/stuff/:id', async (req, res) => {
         return;
     };
 
-    await items.findOneAndUpdate({ _id: id }, body, (error, res) => {
+    await stuffs.findOneAndUpdate({ _id: id }, body, (error, res) => {
         if (error) {
             res.status(500);
             return;
@@ -90,4 +87,4 @@ itemsRouter.put('/stuff/:id', async (req, res) => {
     res.send();
 });
 
-module.exports = itemsRouter;
+module.exports = stuffsRouter;

@@ -1,5 +1,5 @@
 const express = require("express");
-const materials = require("../../models/materialsModel");
+const materials = require("../../models/materialModel");
 
 const materialsRoute = express.Router();
 
