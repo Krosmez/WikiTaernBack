@@ -3,6 +3,18 @@ const stuffs = require("../../models/stuffModel");
 
 const stuffsRouter = express.Router();
 
+stuffsRouter.get('/stuff', async (_, res) => {
+    stuffs.find({}).then(
+        (data) => {
+            res.status(200).json(data);
+        }
+    ).catch(
+        (err) => {
+            res.status(500).json({ message: err });
+        }
+    );
+});
+
 stuffsRouter.get('/stuff/all', async (req, res) => {
     stuffs.find({ isStuff: {} })
         .exec()
