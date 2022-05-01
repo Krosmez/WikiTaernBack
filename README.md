@@ -12,8 +12,19 @@ Noticed that every default parameter in this app are FAKE, they do not provide a
 
 # API ENDPOINT
 
+|METHOD|ENDPOINT|PARAMETER|PURPOSE|
+|--|:--|:--|:--|
+|GET|/items/all|None|Data of all items|
+|POST|/items/stuff|None|Post a new stuff|
+|POST|/items/material|None|Post a new material|
+|PUT|/items/stuff/:id|The stuff id|Modify a specific stuff|
+|DELETE|/items/:id/|The item id|Delete a specific item|
+
+
 ## Items
 
 ### GET
 
 `API_URL/items/all`
+
+### 
