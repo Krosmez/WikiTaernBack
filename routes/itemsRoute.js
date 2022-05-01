@@ -32,7 +32,7 @@ itemsRouter.post('/stuff', async (req, res) => {
             effects,
             isPartOfSet
         },
-        "isMaterial":false
+        "isMaterial": false
     });
 
     newItem.save((err, result) => {
@@ -76,6 +76,13 @@ itemsRouter.post('/material', async (req, res) => {
         }
         res.status(200).json({ result })
     })
+})
+
+itemsRouter.put('/stuff/:id', async (req, res) => {
+    const { id } = req.params;
+
+    await items.findOneAndUpdate({ _id: id });
+    
 })
 
 itemsRouter.delete('/:id', async (req, res) => {
