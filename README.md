@@ -14,7 +14,8 @@ Noticed that every default parameter in this app are FAKE, they do not provide a
 
 |METHOD|ENDPOINT|PARAMETER|PURPOSE|
 |--|:--|:--|:--|
-|GET|[/items/all](#get-items)|None|Data of all items|
+|GET|[/items/stuff](#get-all-stuffs)|None|Get all stuffs|
+|GET|[/items/material](#get-all-materials)|None|Get all materials|
 |POST|[/items/stuff](#post-stuff)|None|Post a new stuff|
 |POST|[/items/material](#post-material)|None|Post a new material|
 |PUT|[/items/stuff/:id](#put-stuff)|The stuff id|Modify a specific stuff|
