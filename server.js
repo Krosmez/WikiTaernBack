@@ -2,7 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const local = "dotenv/config";
-const itemsRouter = require("./routes/itemsRoute");
+const authRouter = require("./routes/authRoute");
+const userRouter = require("./routes/userRoute");
 require(local);
 
 const startApplication = async () => {
@@ -22,6 +23,7 @@ const startApplication = async () => {
 const app = express();
 app.use(express.json());
 
-app.use("/items", itemsRouter);
+app.use("/user", userRouter);
+app.use("/auth", authRouter);
 
 startApplication();
