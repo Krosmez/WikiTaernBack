@@ -1,5 +1,5 @@
 const express = require("express");
-const items = require("../../models/itemsModel");
+const materials = require("../../models/materialsModel");
 
 const materialsRoute = express.Router();
 
@@ -7,20 +7,17 @@ const materialsRoute = express.Router();
 materialsRoute.post('/material', async (req, res) => {
     const { name, value, weight, position, utility, isNatural, isFromPNJ } = req.body;
     // create a new item
-    const newItem = new items({
-        "isStuff": false,
-        "isMaterial": {
-            name,
-            value,
-            weight,
-            position,
-            utility,
-            isNatural,
-            isFromPNJ
-        }
+    const newMaterial = new materials({
+        name,
+        value,
+        weight,
+        position,
+        utility,
+        isNatural,
+        isFromPNJ
     });
 
-    newItem.save((err, result) => {
+    newMaterial.save((err, result) => {
         if (err) {
             res.status(500).send(
                 {
@@ -54,7 +51,7 @@ materialsRoute.put('/material/:id', async (req, res) => {
         return;
     };
 
-    await items.findOneAndUpdate({ _id: id }, body, (error, res) => {
+    await materials.findOneAndUpdate({ _id: id }, body, (error, res) => {
         if (error) {
             res.status(500);
             return;
