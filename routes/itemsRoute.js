@@ -82,22 +82,8 @@ itemsRouter.put('/stuff/:id', async (req, res) => {
         stuff
     };
 
-    await items.findOneAndUpdate({
-        $and: [
-            { id },
-            {
-                is_stuff: {
-                    $eq: true
-                }
-            }
-        ]
-    }, body, (err, res) => {
-        if (err) {
-            res.status(500);
-            return;
-        };
-        res.status(200).send();
-    });
+    await items.findOneAndUpdate({ _id: id }, body);
+    res.send();
 });
 
 itemsRouter.delete('/:id', async (req, res) => {
