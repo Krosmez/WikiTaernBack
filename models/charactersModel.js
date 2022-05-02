@@ -6,18 +6,20 @@ const characters = mongoose.model(
         {
             "name": String,
             "position": String,
-            "isPNJ": {
-                "isStatic": Boolean,
-                "isFlying": Boolean,
+            "is_pnj": Boolean,
+            "is_mob": Boolean,
+            "pnj": {
+                "is_static": Boolean,
+                "is_flying": Boolean,
                 "quest": {
                     "daily": Boolean,
                     "task": Boolean
                 },
                 "trades": [
                     {
-                        "matId": {type: mongoose.Schema.Types.ObjectId, ref:'items'},
-                        "obtainedMaterial": String,
-                        "obtainedWith": [
+                        "mat_id": {type: mongoose.Schema.Types.ObjectId, ref:'items'},
+                        "obtained_material": String,
+                        "obtained_with": [
                             {
                                 "name": String,
                                 "qty": Number
@@ -26,15 +28,15 @@ const characters = mongoose.model(
                     }
                 ]
             },
-            "isMob": {
-                "isNormal": Boolean,
-                "isChampion": Boolean,
-                "isBoss": Boolean,
+            "mob": {
+                "is_normal": Boolean,
+                "is_champion": Boolean,
+                "is_boss": Boolean,
                 "loot": {
                     "ressources": [{ "name": String, "position": String }],
                     "items": {
-                        "isEpic": Boolean,
-                        "isSet": {
+                        "is_epic": Boolean,
+                        "is_set": {
                             "name": String,
                             "rarity": String,
                             "effects": [
@@ -45,7 +47,7 @@ const characters = mongoose.model(
                                 }
                             ]
                         },
-                        "isRare": {
+                        "is_rare": {
                             "name": String,
                             "rarity": String,
                             "effects": [
