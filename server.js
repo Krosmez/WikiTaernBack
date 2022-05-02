@@ -4,7 +4,6 @@ const cors = require("cors");
 const local = "dotenv/config";
 const itemsRouter = require('./routes/items/stuffRoute');
 const materialsRoute = require("./routes/items/materialRoute");
-const allItemsRoute = require("./routes/items/allItemsRoute");
 require(local);
 
 const startApplication = async () => {
@@ -25,7 +24,6 @@ const app = express();
 app.use(express.json());
 
 // all routes
-app.use("/items", allItemsRoute);
 app.use("/items", itemsRouter);
 app.use("/items", materialsRoute);
 
