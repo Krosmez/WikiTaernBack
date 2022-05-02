@@ -74,7 +74,7 @@ materialsRoute.put('/material/:id', async (req, res) => {
     res.send();
 });
 
-materialsRouter.delete('/material/:id', async (req, res) => {
+materialsRoute.delete('/material/:id', async (req, res) => {
     const { id } = req.params;
     materials.findOneAndDelete({ _id: id }, (err, document) => {
         if (err) {
