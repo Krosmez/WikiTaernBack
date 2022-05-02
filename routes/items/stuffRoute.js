@@ -18,8 +18,8 @@ stuffsRouter.get('/stuff', async (_, res) => {
 stuffsRouter.get('/stuff/:id', async (req, res) => {
     const { id } = req.params;
     stuffs.findById(id, (err, stuff) => {
-        err ? res.status(500).send({message:err}) :
-        res.status(200).json(stuff)
+        err ? res.status(500).send({ message: err }) :
+            res.status(200).json(stuff)
     })
 })
 
@@ -84,5 +84,15 @@ stuffsRouter.put('/stuff/:id', async (req, res) => {
     });
     res.send();
 });
+
+stuffsRouter.delete('/stuff/:id', async (req, res) => {
+    const { id } = req.params;
+    stuffs.findOneAndDelete({ _id: id }, (err, document) => {
+        if (err) {
+            res.status(500).json({ message: err });
+        };
+        res.status(200).json(document);
+    });
+})
 
 module.exports = stuffsRouter;
