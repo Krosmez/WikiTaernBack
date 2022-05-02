@@ -10,12 +10,18 @@ For the moment you must have a .env file or folder which should contains those p
 
 Noticed that every default parameter in this app are FAKE, they do not provide access to any database nor data.
 
-# API ENDPOINT
+# API ENDPOINT -- Need update
 
 |METHOD|ENDPOINT|PARAMETER|PURPOSE|
 |--|:--|:--|:--|
-|GET|[/items/stuff](#get-all-stuffs)|None|Get all stuffs|
-|GET|[/items/material](#get-all-materials)|None|Get all materials|
+|GET|[/items/all](#get-all-items)|None|Get all items|
+|GET|[/stuff](#get-all-stuffs)|None|Get all stuffs|
+|GET|[/material](#get-all-materials)|None|Get all materials|
+|GET|[/character](#get-all-characters)|None|Get all characters|
+|GET|[/pnj](#get-all-pnjs)|None|Get all pnjs|
+|GET|[/mob](#get-all-mobs)|None|Get all mobs|
+|GET|[/stuff/:id](#get-one-stuff)|The stuff id|Get a stuff by is id|
+|GET|[/material/:id](#get-one-material)|The material id|Get a material by is id|
 |POST|[/items/stuff](#post-stuff)|None|Post a new stuff|
 |POST|[/items/material](#post-material)|None|Post a new material|
 |PUT|[/items/stuff/:id](#put-stuff)|The stuff id|Modify a specific stuff|
