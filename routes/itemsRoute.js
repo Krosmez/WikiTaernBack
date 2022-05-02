@@ -23,8 +23,16 @@ itemsRouter.get('/stuff', async (_, res) => {
     ).catch((err)=>{res.status(500).json({message:err})})
 });
 
-itemsRouter.get('/stuff/material', async (_, res) => {
-    items.find({}, '').then().catch()
+itemsRouter.get('/material', async (_, res) => {
+    items.find({
+        is_material: {
+            $eq: true
+        }
+    }, 'name value weight material').then(
+        (data)=>{
+            res.status(200).json(data)
+        }
+    ).catch((err)=>{res.status(500).json({message:err})})
 });
 
 module.exports = itemsRouter;
