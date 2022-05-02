@@ -2,9 +2,9 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const local = "dotenv/config";
-const allItems = require('./routes/itemsRoute');
-const stuffsRoute = require('./routes/stuffsRoute');
-const materialsRoute = require('./routes/materialsRoute');
+const allItems = require('./routes/items/itemsRoute');
+const stuffsRoute = require('./routes/items/stuffsRoute');
+const materialsRoute = require('./routes/items/materialsRoute');
 const charactersRoute = require('./routes/characters/charactersRoute');
 require(local);
 
