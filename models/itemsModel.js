@@ -7,6 +7,8 @@ const items = mongoose.model(
             "name": String,
             "value": Number,
             "weight": Number,
+            "is_stuff":Boolean,
+            "is_material":Boolean,
             "stuff": {
                 "rarity": String,
                 "is_for": String,
