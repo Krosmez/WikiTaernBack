@@ -3,7 +3,7 @@ const characters = require('../../models/charactersModel');
 
 const mobRouter = express.Router();
 
-mobRouter.get('/mob', async (_, res) => {
+mobRouter.get('/', async (_, res) => {
     characters.find({
         is_mob: { $eq: true }
     }, 'id name position pnj')

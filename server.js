@@ -31,10 +31,10 @@ app.use(express.json());
 
 // all routes
 app.use("/items", allItems);
-app.use("/items", stuffsRoute);
-app.use("/items", materialsRoute);
+app.use("/stuff", stuffsRoute);
+app.use("/material", materialsRoute);
 app.use("/characters", charactersRoute);
-app.use("/characters", mobRoute);
-app.use("/characters", pnjRoute);
+app.use("/mob", mobRoute);
+app.use("/pnj", pnjRoute);
 
 startApplication();

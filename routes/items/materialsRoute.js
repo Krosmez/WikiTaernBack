@@ -3,7 +3,7 @@ const items = require("../../models/itemsModel");
 
 const materialsRoute = express.Router();
 
-materialsRoute.get('/material', async (_, res) => {
+materialsRoute.get('/', async (_, res) => {
     await items.find({
         is_material: {
             $eq: true
@@ -15,7 +15,7 @@ materialsRoute.get('/material', async (_, res) => {
     ).catch((err) => { res.status(500).json({ message: err }) })
 });
 
-materialsRoute.get('/material/:id', async (req, res) => {
+materialsRoute.get('/:id', async (req, res) => {
     const { id } = req.params;
     await items.find({
         $and: [

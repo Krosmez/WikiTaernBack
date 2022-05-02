@@ -3,7 +3,7 @@ const characters = require('../../models/charactersModel');
 
 const pnjRouter = express.Router();
 
-pnjRouter.get('/pnj', async (_, res) => {
+pnjRouter.get('/', async (_, res) => {
     characters.find({
         is_pnj: { $eq: true }
     }, 'id name position pnj')

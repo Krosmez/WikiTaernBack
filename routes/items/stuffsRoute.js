@@ -3,7 +3,7 @@ const items = require("../../models/itemsModel");
 
 const stuffsRoute = express.Router();
 
-stuffsRoute.get('/stuff', async (_, res) => {
+stuffsRoute.get('/', async (_, res) => {
     await items.find({
         is_stuff: {
             $eq: true
@@ -15,7 +15,7 @@ stuffsRoute.get('/stuff', async (_, res) => {
     ).catch((err) => { res.status(500).json({ message: err }) })
 });
 
-stuffsRoute.get('/stuff/:id', async (req, res) => {
+stuffsRoute.get('/:id', async (req, res) => {
     const { id } = req.params;
     await items.find({
         $and: [
