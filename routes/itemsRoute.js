@@ -73,7 +73,15 @@ itemsRouter.get('/material/:id', async (req, res) => {
 
 itemsRouter.put('/stuff/:id', async (req, res) => {
     const { id } = req.params;
-    const { name } = req.body;
+    const { name, value, weight, stuff } = req.body;
+
+    const body = {
+        name,
+        value,
+        weight,
+        stuff
+    };
+
     await items.findOneAndUpdate({
         $and: [
             { id },
@@ -83,9 +91,13 @@ itemsRouter.put('/stuff/:id', async (req, res) => {
                 }
             }
         ]
-    }, body, (err, data) => {
-
-    })
+    }, body, (err, res) => {
+        if (err) {
+            res.status(500);
+            return;
+        };
+        res.status(200).send();
+    });
 });
 
 itemsRouter.delete('/:id', async (req, res) => {
