@@ -6,9 +6,9 @@ const itemsRouter = express.Router();
 itemsRouter.get('/all', async (_, res) => {
     await items.find({}).then(
         (data) => { res.status(200).json(data) }
-    ).catch(
+    ).catch((err) => {
         res.status(500).json({ message: err })
-    );
+    });
 });
 
 itemsRouter.get('/stuff', async (_, res) => {
