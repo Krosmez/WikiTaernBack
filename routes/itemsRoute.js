@@ -72,4 +72,10 @@ itemsRouter.get('/material/:id', async (req, res) => {
     ).catch((err) => { res.status(500).json({ message: err }) })
 });
 
+itemsRouter.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+    await items.findOneAndDelete({ id });
+    res.status(204).send()
+});
+
 module.exports = itemsRouter;
