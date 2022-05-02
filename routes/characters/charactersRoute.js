@@ -14,3 +14,5 @@ charactersRouter.get('/all', async (_, res) => {
         }
     );
 })
+
+module.exports = charactersRouter;
