@@ -1,9 +1,11 @@
 const authRouter = require("express").Router();
 const bcrypt = require("bcrypt");
+const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const { check, validationResult } = require("express-validator");
 const checkDuplicate = require("../middleware/checkDuplicate");
 const User = require("../models/userModel");
+const RefreshToken = require("../models/refreshToken");
 const local = require('dotenv/config');
 
 // require(local);
@@ -76,11 +78,15 @@ authRouter.post("/login", [
             email // => not fully secure, data is sensitive
         }, process.env.SECRET_JWT_KEY, {
             expiresIn: "30d"
-        })
+        });
+        const refreshToken = generateRefreshToken(email);
+
+        await refreshToken.save();
 
         res.status(200).send({
             id: user._id,
-            token
+            token,
+            refreshToken: refreshToken.token
         })
     } catch (err) {
         res.status(500).json({
@@ -88,5 +94,17 @@ authRouter.post("/login", [
         })
     }
 })
+
+function randomTokenString() {
+    return crypto.randomBytes(40).toString('hex');
+}
+
+function generateRefreshToken(email){
+    return new RefreshToken({
+        email: email,
+        token: randomTokenString(),
+        expires: new Date(Date.now() + 7*24*60*60*1000)
+    });
+};
 
 module.exports = authRouter
