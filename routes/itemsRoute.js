@@ -4,7 +4,7 @@ const items = require("../models/itemsModel");
 const itemsRouter = express.Router();
 
 itemsRouter.get('/all', async (_, res) => {
-    items.find({}).then(
+    await items.find({}).then(
         (data) => { res.status(200).json(data) }
     ).catch(
         res.status(500).json({ message: err })
@@ -12,7 +12,7 @@ itemsRouter.get('/all', async (_, res) => {
 });
 
 itemsRouter.get('/stuff', async (_, res) => {
-    items.find({
+    await items.find({
         is_stuff: {
             $eq: true
         }
@@ -25,8 +25,7 @@ itemsRouter.get('/stuff', async (_, res) => {
 
 itemsRouter.get('/stuff/:id', async (req, res) => {
     const { id } = req.params;
-
-    items.find({
+    await items.find({
         $and: [
             { id },
             {
@@ -43,7 +42,7 @@ itemsRouter.get('/stuff/:id', async (req, res) => {
 });
 
 itemsRouter.get('/material', async (_, res) => {
-    items.find({
+    await items.find({
         is_material: {
             $eq: true
         }
@@ -56,7 +55,7 @@ itemsRouter.get('/material', async (_, res) => {
 
 itemsRouter.get('/material/:id', async (req, res) => {
     const { id } = req.params;
-    items.find({
+    await items.find({
         $and: [
             { id },
             {
