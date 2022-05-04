@@ -8,11 +8,12 @@ materialsRoute.get('/', async (_, res) => {
         is_material: {
             $eq: true
         }
-    }, 'name value weight material').then(
-        (data) => {
-            res.status(200).json(data)
-        }
-    ).catch((err) => { res.status(500).json({ message: err }) })
+    }, 'name value weight material')
+        .then(
+            (data) => {
+                res.status(200).json(data);
+            })
+        .catch((err) => { res.status(500).json({ message: err }) });
 });
 
 materialsRoute.get('/:id', async (req, res) => {
@@ -26,11 +27,12 @@ materialsRoute.get('/:id', async (req, res) => {
                 }
             }
         ]
-    }, 'name value weight material').then(
-        (data) => {
-            res.status(200).json(data)
-        }
-    ).catch((err) => { res.status(500).json({ message: err }) })
+    }, 'name value weight material')
+        .then(
+            (data) => {
+                res.status(200).json(data);
+            })
+        .catch((err) => { res.status(500).json({ message: err }) });
 });
 
 module.exports = materialsRoute;

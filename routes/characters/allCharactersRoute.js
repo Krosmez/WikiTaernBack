@@ -13,7 +13,7 @@ charactersRouter.get('/all', async (_, res) => {
             res.status(500).json({ message: err });
         }
     );
-})
+});
 
 charactersRouter.put('/:id', async (req, res) => {
     const { id } = req.params;
@@ -33,6 +33,7 @@ charactersRouter.put('/:id', async (req, res) => {
 charactersRouter.delete('/:id', async (req, res) => {
     const { id } = req.params;
     await characters.findOneAndDelete({ id });
-    res.status(204).send()
+    res.status(204).send();
 });
+
 module.exports = charactersRouter;

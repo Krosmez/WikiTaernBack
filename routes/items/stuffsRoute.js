@@ -8,11 +8,12 @@ stuffsRoute.get('/', async (_, res) => {
         is_stuff: {
             $eq: true
         }
-    }, 'name value weight stuff').then(
-        (data) => {
-            res.status(200).json(data)
-        }
-    ).catch((err) => { res.status(500).json({ message: err }) })
+    }, 'name value weight stuff')
+        .then(
+            (data) => {
+                res.status(200).json(data);
+            })
+        .catch((err) => { res.status(500).json({ message: err }) });
 });
 
 stuffsRoute.get('/:id', async (req, res) => {
@@ -26,11 +27,12 @@ stuffsRoute.get('/:id', async (req, res) => {
                 }
             }
         ]
-    }, 'name value weight stuff').then(
-        (data) => {
-            res.status(200).json(data)
-        }
-    ).catch((err) => { res.status(500).json({ message: err }) })
+    }, 'name value weight stuff')
+        .then(
+            (data) => {
+                res.status(200).json(data);
+            })
+        .catch((err) => { res.status(500).json({ message: err }) });
 });
 
 module.exports = stuffsRoute;

@@ -30,7 +30,7 @@ itemsRouter.put('/:id', async (req, res) => {
 itemsRouter.delete('/:id', async (req, res) => {
     const { id } = req.params;
     await items.findOneAndDelete({ id });
-    res.status(204).send()
+    res.status(204).send();
 });
 
 module.exports = itemsRouter;
