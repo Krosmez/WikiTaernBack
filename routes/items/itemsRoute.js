@@ -13,13 +13,14 @@ itemsRouter.get('/all', async (_, res) => {
 
 itemsRouter.put('/:id', async (req, res) => {
     const { id } = req.params;
-    const { name, value, weight, stuff } = req.body;
+    const { name, value, weight, stuff, material } = req.body;
 
     const body = {
         name,
         value,
         weight,
-        stuff
+        stuff,
+        material
     };
 
     await items.findOneAndUpdate({ _id: id }, body);
