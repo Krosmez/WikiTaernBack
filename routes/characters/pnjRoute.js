@@ -17,7 +17,7 @@ pnjRouter.get('/:id', async (req, res) => {
         $and: [
             { id },
             {
-                is_material: {
+                is_pnj: {
                     $eq: true
                 }
             }
