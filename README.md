@@ -10,7 +10,7 @@ For the moment you must have a .env file or folder which should contains those p
 
 Noticed that every default parameter in this app are FAKE, they do not provide access to any database nor data.
 
-# API ENDPOINT -- Need update
+# API ENDPOINT
 
 ## API Items
 
