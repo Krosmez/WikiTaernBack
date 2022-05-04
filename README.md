@@ -41,14 +41,18 @@ Noticed that every default parameter in this app are FAKE, they do not provide a
 |METHOD|ENDPOINT|PARAMETER|PURPOSE|
 |--|:--|:--|:--|
 |GET|[/character](#get-all-characters)|None|Get all characters|
+|PUT|[/character/:id](#put-character)|The character id|Modify a specific character|
+|DELETE|[/character/:id](#delete-character)|The character id|Delete a character|
 
 ## API PNJ
 
 |METHOD|ENDPOINT|PARAMETER|PURPOSE|
 |--|:--|:--|:--|
 |GET|[/pnj](#get-all-pnjs)|None|Get all pnjs|
+|GET|[/pnj/:id](#get-one-pnj)|The pnj id|Get a pnj by is id|
 
 ## API Mobs
 |METHOD|ENDPOINT|PARAMETER|PURPOSE|
 |--|:--|:--|:--|
 |GET|[/mob](#get-all-mobs)|None|Get all mobs|
+|GET|[/mob/:id](#get-one-mob)|The mob id|Get a mob by is id|
