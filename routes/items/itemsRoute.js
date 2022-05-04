@@ -5,7 +5,7 @@ const itemsRouter = express.Router();
 
 itemsRouter.get('/all', async (_, res) => {
     await items.find({}).then((data) => {
-        res.status(200).json(data)
+        res.status(202).json(data)
     }).catch((err) => {
         res.status(500).json({ message: err })
     });
@@ -24,7 +24,7 @@ itemsRouter.put('/:id', async (req, res) => {
     };
 
     await items.findOneAndUpdate({ _id: id }, body);
-    res.send();
+    res.status(202).send();
 });
 
 itemsRouter.delete('/:id', async (req, res) => {

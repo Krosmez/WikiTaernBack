@@ -6,7 +6,7 @@ const charactersRouter = express.Router();
 charactersRouter.get('/all', async (_, res) => {
     characters.find({}).then(
         (data) => {
-            res.status(200).json(data);
+            res.status(202).json(data);
         }
     ).catch(
         (err) => {
@@ -27,7 +27,7 @@ charactersRouter.put('/:id', async (req, res) => {
     };
 
     await characters.findOneAndUpdate({ _id: id }, body);
-    res.send();
+    res.status(202).send();
 });
 
 charactersRouter.delete('/:id', async (req, res) => {

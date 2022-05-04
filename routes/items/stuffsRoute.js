@@ -11,7 +11,7 @@ stuffsRoute.get('/', async (_, res) => {
     }, 'name value weight stuff')
         .then(
             (data) => {
-                res.status(200).json(data);
+                res.status(202).json(data);
             })
         .catch((err) => { res.status(500).json({ message: err }) });
 });
@@ -30,7 +30,7 @@ stuffsRoute.get('/:id', async (req, res) => {
     }, 'name value weight stuff')
         .then(
             (data) => {
-                res.status(200).json(data);
+                res.status(202).json(data);
             })
         .catch((err) => { res.status(500).json({ message: err }) });
 });
