@@ -17,13 +17,13 @@ charactersRouter.get('/all', async (_, res) => {
 
 charactersRouter.put('/:id', async (req, res) => {
     const { id } = req.params;
-    const { name, value, weight, stuff } = req.body;
+    const { name, position, pnj, mob } = req.body;
 
     const body = {
         name,
-        value,
-        weight,
-        stuff
+        position,
+        pnj,
+        mob
     };
 
     await characters.findOneAndUpdate({ _id: id }, body);
