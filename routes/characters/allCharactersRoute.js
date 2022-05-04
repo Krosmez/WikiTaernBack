@@ -14,4 +14,25 @@ charactersRouter.get('/all', async (_, res) => {
         }
     );
 })
+
+charactersRouter.put('/:id', async (req, res) => {
+    const { id } = req.params;
+    const { name, value, weight, stuff } = req.body;
+
+    const body = {
+        name,
+        value,
+        weight,
+        stuff
+    };
+
+    await characters.findOneAndUpdate({ _id: id }, body);
+    res.send();
+});
+
+charactersRouter.delete('/:id', async (req, res) => {
+    const { id } = req.params;
+    await characters.findOneAndDelete({ id });
+    res.status(204).send()
+});
 module.exports = charactersRouter;
