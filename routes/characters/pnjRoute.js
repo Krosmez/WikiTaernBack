@@ -30,4 +30,24 @@ pnjRouter.get('/:id', async (req, res) => {
         .catch((err) => { res.status(500).json({ message: err }) });
 });
 
+pnjRouter.post('/', async (req, res) => {
+    const { name, position, pnj, mob } = req.body;
+
+    const newPnj = new characters({
+        name,
+        position,
+        "is_pnj": true,
+        "is_mob": false,
+        pnj,
+        mob
+    });
+
+    await newPnj.save((err, result) => {
+        if (err) { res.status(500).send({ message: err }) };
+        res.json({
+            result
+        });
+    });
+});
+
 module.exports = pnjRouter;
