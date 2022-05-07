@@ -16,6 +16,27 @@ stuffsRoute.get('/', async (_, res) => {
         .catch((err) => { res.status(500).json({ message: err }) });
 });
 
+stuffsRoute.post('/', async (req, res) => {
+    const { name, value, weight, stuff, material } = req.body;
+
+    const newStuff = new items({
+        name,
+        value,
+        weight,
+        "is_stuff":true,
+        "is_material":false,
+        stuff,
+        material
+    });
+
+    await newStuff.save((err, result) => {
+        if (err) { res.status(500).send({ message: err }) };
+        res.json({
+            result
+        });
+    });
+});
+
 stuffsRoute.get('/:id', async (req, res) => {
     const { id } = req.params;
     await items.find({

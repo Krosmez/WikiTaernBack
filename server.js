@@ -7,7 +7,7 @@ const allItems = require('./routes/items/itemsRoute');
 const stuffsRoute = require('./routes/items/stuffsRoute');
 const materialsRoute = require('./routes/items/materialsRoute');
 //Characters Router
-const charactersRoute = require('./routes/characters/charactersRoute');
+const charactersRoute = require('./routes/characters/allCharactersRoute');
 const mobRoute = require('./routes/characters/mobRoute');
 const pnjRoute = require('./routes/characters/pnjRoute');
 
