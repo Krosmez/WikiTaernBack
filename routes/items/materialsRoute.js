@@ -35,4 +35,25 @@ materialsRoute.get('/:id', async (req, res) => {
         .catch((err) => { res.status(500).json({ message: err }) });
 });
 
+materialsRoute.post('/', async (req, res) => {
+    const { name, value, weight, stuff, material } = req.body;
+
+    const newMaterial = new items({
+        name,
+        value,
+        weight,
+        "is_stuff": false,
+        "is_material": true,
+        stuff,
+        material
+    });
+
+    await newMaterial.save((err, result) => {
+        if (err) { res.status(500).send({ message: err }) };
+        res.json({
+            result
+        });
+    });
+});
+
 module.exports = materialsRoute;
