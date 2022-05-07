@@ -50,9 +50,11 @@ Noticed that every default parameter in this app are FAKE, they do not provide a
 |--|:--|:--|:--|
 |GET|[/pnj](#get-all-pnjs)|None|Get all pnjs|
 |GET|[/pnj/:id](#get-one-pnj)|The pnj id|Get a pnj by is id|
+|POST|[/pnj](#post-pnj)|None|Post a new pnj|
 
 ## API Mobs
 |METHOD|ENDPOINT|PARAMETER|PURPOSE|
 |--|:--|:--|:--|
 |GET|[/mob](#get-all-mobs)|None|Get all mobs|
 |GET|[/mob/:id](#get-one-mob)|The mob id|Get a mob by is id|
+|POST|[/mob](#post-mob)|None|Post a new mob|
