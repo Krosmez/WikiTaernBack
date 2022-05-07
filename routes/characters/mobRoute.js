@@ -30,4 +30,24 @@ mobRouter.get('/:id', async (req, res) => {
         .catch((err) => { res.status(500).json({ message: err }) });
 });
 
+mobRouter.post('/', async (req, res) => {
+    const { name, position, pnj, mob } = req.body;
+
+    const newMob = new characters({
+        name,
+        position,
+        "is_pnj": false,
+        "is_mob": true,
+        pnj,
+        mob
+    });
+
+    await newMob.save((err, result) => {
+        if (err) { res.status(500).send({ message: err }) };
+        res.json({
+            result
+        });
+    });
+});
+
 module.exports = mobRouter;
