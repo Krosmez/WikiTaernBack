@@ -7,6 +7,7 @@ const checkDuplicate = require("../middleware/checkDuplicate");
 const User = require("../models/userModel");
 const RefreshToken = require("../models/refreshToken");
 const local = require('dotenv/config');
+const {config, refreshToken} = require("../config/token");
 
 // require(local);
 
@@ -25,25 +26,27 @@ authRouter.post('/signup', [
             errors: errors.array()
         })
     }
-    // Save User with hashed Pwd
-    const hashPwd = await bcrypt.hash(password, 10)
-    const newUser = new User({
-        email,
-        password: hashPwd
-    })
 
-    const token = await jwt.sign({
-        email // => not secure, data is sensitive
-
-    }, process.env.SECRET_JWT_KEY, {
-        expiresIn: 36000
-    })
-    newUser.save(err => {
-        if (err) { res.status(500).send({ message: err }); return; }
-        res.json({
-            token
+        // Save User with hashed Pwd
+        const hashPwd = await bcrypt.hash(password, 10)
+        const newUser = new User({
+            email,
+            password: hashPwd
         })
-    })
+
+        const accessToken = await jwt.sign({
+            email // => not secure, data is sensitive
+        },process.env.SECRET_TOKEN, {
+        })
+        newUser.save(err => {
+            if (err) {
+                res.status(500).send({message: err});
+                return;
+            }
+            res.json({
+                accessToken
+            })
+        })
 });
 
 authRouter.post("/login", [
@@ -59,8 +62,7 @@ authRouter.post("/login", [
     }
 
     try {
-
-        let user = await User.findOne({ email });
+        const user = await User.findOne({ email });
         if (!user) {
             return res.status(400).json({
                 message: "Invalid credentials"
@@ -72,38 +74,52 @@ authRouter.post("/login", [
                 "errors": [{ "message": "Invalid credentials" }]
             })
         }
+        const xsrfToken = crypto.randomBytes(64).toString('hex');
 
-        const token = await jwt.sign({ // That will generate a token
-            // "id": user._id,
-            email // => not fully secure, data is sensitive
-        }, process.env.SECRET_JWT_KEY, {
-            expiresIn: "30d"
+        const accessToken = await jwt.sign({ // That will generate a token
+            email: user.email, xsrfToken  // => not fully secure, data is sensitive
+        }, config.accessToken.secret, {
+            algorithm: config.accessToken.algorithm,
+            audience: config.accessToken.audience,
+            expiresIn: config.accessToken.expiresIn / 1000, // Le délai avant expiration exprimé en seconde
+            issuer: config.accessToken.issuer,
+            subject: email.toString()
         });
         const refreshToken = generateRefreshToken(email);
 
         await refreshToken.save();
 
-        res.status(200).send({
-            id: user._id,
-            token,
-            refreshToken: refreshToken.token
+        res.cookie('access_token', accessToken, {
+            httpOnly: true,
+            secure: true,
+            maxAge:config.accessToken.expiresIn
+        });
+
+        res.cookie('refresh_token', refreshToken, {
+            httpOnly: true,
+            secure: true,
+            maxAge: config.refreshToken.expiresIn,
+            path: '/token'
+        });
+
+        //res.status(200).send
+        res.json({
+            accessTokenExpiresIn: config.accessToken.expiresIn,
+            refreshTokenExpiresIn: config.refreshToken.expiresIn,
+            xsrfToken
         })
     } catch (err) {
         res.status(500).json({
-            message: "Server Error"
+            message: "test"
         })
     }
 })
 
-function randomTokenString() {
-    return crypto.randomBytes(40).toString('hex');
-}
-
 function generateRefreshToken(email){
     return new RefreshToken({
         email: email,
-        token: randomTokenString(),
-        expires: new Date(Date.now() + 7*24*60*60*1000)
+        token: refreshToken,
+        expiresAt: Date.now() + config.refreshToken.expiresIn
     });
 };
 
