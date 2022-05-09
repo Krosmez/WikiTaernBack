@@ -5,11 +5,8 @@ const jwt = require("jsonwebtoken");
 const { check, validationResult } = require("express-validator");
 const checkDuplicate = require("../middleware/checkDuplicate");
 const User = require("../models/userModel");
-const RefreshToken = require("../models/refreshToken");
 const local = require('dotenv/config');
-const {config, refreshToken} = require("../config/token");
-
-// require(local);
+require(local);
 
 authRouter.post('/signup', [
     check("email", "Please provide a valid email").isEmail(),
@@ -36,7 +33,7 @@ authRouter.post('/signup', [
 
         const accessToken = await jwt.sign({
             email // => not secure, data is sensitive
-        },process.env.SECRET_TOKEN, {
+        },process.env.ACCESS_TOKEN_SECRET, {
         })
         newUser.save(err => {
             if (err) {
@@ -78,49 +75,45 @@ authRouter.post("/login", [
 
         const accessToken = await jwt.sign({ // That will generate a token
             email: user.email, xsrfToken  // => not fully secure, data is sensitive
-        }, config.accessToken.secret, {
-            algorithm: config.accessToken.algorithm,
-            audience: config.accessToken.audience,
-            expiresIn: config.accessToken.expiresIn / 1000, // Le délai avant expiration exprimé en seconde
-            issuer: config.accessToken.issuer,
+        }, process.env.ACCESS_TOKEN_SECRET, {
+            algorithm: process.env.ACCESS_TOKEN_ALGORITHM,
+            audience: process.env.ACCESS_TOKEN_AUDIENCE,
+            expiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN / 1000, // Le délai avant expiration exprimé en seconde
+            issuer: process.env.ACCESS_TOKEN_ISSUER,
             subject: email.toString()
         });
-        const refreshToken = generateRefreshToken(email);
 
-        await refreshToken.save();
+        const refreshToken = crypto.randomBytes(128).toString('base64');
+        await RefreshToken.create({
+            userEmail: user.email,
+            token: refreshToken,
+            expiresAt: Date.now() + process.env.REFRESH_TOKEN_EXPIRES_IN
+        });
 
         res.cookie('access_token', accessToken, {
             httpOnly: true,
             secure: true,
-            maxAge:config.accessToken.expiresIn
+            maxAge: process.env.ACCESS_TOKEN_EXPIRES_IN
         });
 
         res.cookie('refresh_token', refreshToken, {
             httpOnly: true,
             secure: true,
-            maxAge: config.refreshToken.expiresIn,
+            maxAge: process.env.REFRESH_TOKEN_EXPIRES_IN,
             path: '/token'
         });
 
         //res.status(200).send
         res.json({
-            accessTokenExpiresIn: config.accessToken.expiresIn,
-            refreshTokenExpiresIn: config.refreshToken.expiresIn,
+            accessTokenExpiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN,
+            refreshTokenExpiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN,
             xsrfToken
         })
     } catch (err) {
         res.status(500).json({
-            message: "test"
+            message: "Server erreur"
         })
     }
 })
-
-function generateRefreshToken(email){
-    return new RefreshToken({
-        email: email,
-        token: refreshToken,
-        expiresAt: Date.now() + config.refreshToken.expiresIn
-    });
-};
 
 module.exports = authRouter

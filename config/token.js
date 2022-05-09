@@ -7,7 +7,10 @@
  * Initialize the configuration.
  * @param {Object} env - The environment variables.
  */
-module.exports = () => ({
+const local = "dotenv/config";
+require(local);
+
+module.exports = {
     accessToken: {
         type: process.env.ACCESS_TOKEN_TYPE || 'Bearer',
         algorithm: process.env.ACCESS_TOKEN_ALGORITHM || 'HS256',
@@ -19,4 +22,4 @@ module.exports = () => ({
     refreshToken: {
         expiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN
     }
-});
+};
