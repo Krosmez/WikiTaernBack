@@ -6,7 +6,7 @@ const { check, validationResult } = require("express-validator");
 const checkDuplicate = require("../middleware/checkDuplicate");
 const User = require("../models/userModel");
 const local = require('dotenv/config');
-require(local);
+//require(local);
 
 authRouter.post('/signup', [
     check("email", "Please provide a valid email").isEmail(),
@@ -84,8 +84,8 @@ authRouter.post("/login", [
         });
 
         const refreshToken = crypto.randomBytes(128).toString('base64');
-        await RefreshToken.create({
-            userEmail: user.email,
+        await RefreshToken.save({
+            userId: user.email,
             token: refreshToken,
             expiresAt: Date.now() + process.env.REFRESH_TOKEN_EXPIRES_IN
         });
