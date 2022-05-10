@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const { check, validationResult } = require("express-validator");
 const checkDuplicate = require("../middleware/checkDuplicate");
 const User = require("../models/userModel");
+const RefreshToken = require("../models/refreshToken");
 const local = require('dotenv/config');
 //require(local);
 
@@ -65,14 +66,16 @@ authRouter.post("/login", [
                 message: "Invalid credentials"
             });
         }
+        console.log("user found");
         const isMatch = await bcrypt.compare(password, user.password)
         if (!isMatch) {
             return res.status(400).json({
                 "errors": [{ "message": "Invalid credentials" }]
             })
         }
+        console.log("pwd found");
         const xsrfToken = crypto.randomBytes(64).toString('hex');
-
+        console.log("xsrf create");
         const accessToken = await jwt.sign({ // That will generate a token
             email: user.email, xsrfToken  // => not fully secure, data is sensitive
         }, process.env.ACCESS_TOKEN_SECRET, {
@@ -82,33 +85,36 @@ authRouter.post("/login", [
             issuer: process.env.ACCESS_TOKEN_ISSUER,
             subject: email.toString()
         });
-
+        console.log("access create");
         const refreshToken = crypto.randomBytes(128).toString('base64');
-        await RefreshToken.save({
-            userId: user.email,
+        console.log("refresh crypto");
+        await RefreshToken.create({
+            user: user.email,
             token: refreshToken,
             expiresAt: Date.now() + process.env.REFRESH_TOKEN_EXPIRES_IN
         });
+        console.log("refresh create");
 
         res.cookie('access_token', accessToken, {
             httpOnly: true,
             secure: true,
             maxAge: process.env.ACCESS_TOKEN_EXPIRES_IN
         });
-
+        console.log("cookie access");
         res.cookie('refresh_token', refreshToken, {
             httpOnly: true,
             secure: true,
             maxAge: process.env.REFRESH_TOKEN_EXPIRES_IN,
             path: '/token'
         });
-
+        console.log("cookie refresh");
         //res.status(200).send
         res.json({
             accessTokenExpiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN,
             refreshTokenExpiresIn: process.env.REFRESH_TOKEN_EXPIRES_IN,
             xsrfToken
         })
+        console.log("ok !");
     } catch (err) {
         res.status(500).json({
             message: "Server erreur"
