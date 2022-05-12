@@ -17,6 +17,7 @@ charactersRouter.get('/all', async (_, res) => {
 });
 
 charactersRouter.put('/:id',
+    param('id').isMongoId(),
     body('name').isString().escape().trim(),
     body('position').isString().escape().trim(),
     body('pnj').isObject({ "strict": false }),
