@@ -35,10 +35,12 @@ itemsRouter.put('/:id',
         res.status(202).send();
     });
 
-itemsRouter.delete('/:id', async (req, res) => {
-    const { id } = req.params;
-    await items.findOneAndDelete({ id });
-    res.status(204).send();
-});
+itemsRouter.delete('/:id',
+    param('id').isMongoId(),
+    async (req, res) => {
+        const { id } = req.params;
+        await items.findOneAndDelete({ id });
+        res.status(204).send();
+    });
 
 module.exports = itemsRouter;
