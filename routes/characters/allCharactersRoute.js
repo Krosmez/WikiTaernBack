@@ -1,4 +1,5 @@
 const express = require('express');
+const { body, param } = require('express-validator');
 const characters = require('../../models/charactersModel');
 
 const charactersRouter = express.Router();
@@ -15,25 +16,38 @@ charactersRouter.get('/all', async (_, res) => {
     );
 });
 
-charactersRouter.put('/:id', async (req, res) => {
-    const { id } = req.params;
-    const { name, position, pnj, mob } = req.body;
+charactersRouter.put('/:id',
+    param('id').isMongoId(),
+    body('name').isString().escape().trim(),
+    body('position').isString().escape().trim(),
+    body('pnj').isObject({ "strict": false }),
+    body('mob').isObject({ "strict": false }),
+    async (req, res) => {
+        const { id } = req.params;
+        const { name, position, pnj, mob } = req.body;
+        const errors = validationResult(req);
 
-    const body = {
-        name,
-        position,
-        pnj,
-        mob
-    };
+        if (!errors.isEmpty()) {
+            return res.status(401).json({ errors: errors.array() });
+        }
 
-    await characters.findOneAndUpdate({ _id: id }, body);
-    res.status(202).send();
-});
+        const body = {
+            name,
+            position,
+            pnj,
+            mob
+        };
 
-charactersRouter.delete('/:id', async (req, res) => {
-    const { id } = req.params;
-    await characters.findOneAndDelete({ id });
-    res.status(204).send();
-});
+        await characters.findOneAndUpdate({ _id: id }, body);
+        res.status(202).send();
+    });
+
+charactersRouter.delete('/:id',
+    param('id').isMongoId(),
+    async (req, res) => {
+        const { id } = req.params;
+        await characters.findOneAndDelete({ id });
+        res.status(204).send();
+    });
 
 module.exports = charactersRouter;
