@@ -6,10 +6,13 @@ const local = "dotenv/config";
 const allItems = require('./routes/items/itemsRoute');
 const stuffsRoute = require('./routes/items/stuffsRoute');
 const materialsRoute = require('./routes/items/materialsRoute');
-//Characters Router
+// Characters Router
 const charactersRoute = require('./routes/characters/allCharactersRoute');
 const mobRoute = require('./routes/characters/mobRoute');
 const pnjRoute = require('./routes/characters/pnjRoute');
+// Auth Router
+const authRouter = require("./routes/authRoute");
+const userRouter = require("./routes/userRoute");
 require(local);
 
 const startApplication = async () => {
@@ -35,5 +38,8 @@ app.use("/material", materialsRoute);
 app.use("/characters", charactersRoute);
 app.use("/mob", mobRoute);
 app.use("/pnj", pnjRoute);
+
+app.use("/user", userRouter);
+app.use("/auth", authRouter);
 
 startApplication();
