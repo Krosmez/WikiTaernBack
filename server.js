@@ -23,13 +23,10 @@ const startApplication = async () => {
             useNewURLParser: true
         }
     );
-    console.log(`Successfully connected to MongoDB at: ${process.env.DB_NAME || "local"} on ${process.env.CLUSTER_NAME || "noCluster"}`);
-
-    await app.listen(process.env.PORT || 8080);
-    console.log(`Listening on ${process.env.PORT || 8080}`);
 }
 
 const app = express();
+
 app.use(express.json());
 // all routes
 app.use("/items", allItems);
@@ -43,3 +40,5 @@ app.use("/user", userRouter);
 app.use("/auth", authRouter);
 
 startApplication();
+
+module.exports = app;
